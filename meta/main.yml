@@ -16,6 +16,7 @@ galaxy_info:
 
 dependencies:
   - role: "cornfeedhobo.epel"
+    when: ansible_os_family == 'RedHat'
     tags: ["cjdns", "cjdns-install"]
 
   - role: "jtyr.config_encoder_filters"
