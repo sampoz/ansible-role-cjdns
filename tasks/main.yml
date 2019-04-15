@@ -7,7 +7,7 @@
 - name: "Adding PPA"
   apt_repository:
     repo: 'ppa:cjdns-ppa/ppa'
-  when: ansible_os_family == 'Ubuntu'
+  when: ansible_os_family == 'Debian'
 
 - name: "Ensure cjdns is installed"
   become: true

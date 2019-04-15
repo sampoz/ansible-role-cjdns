@@ -1,0 +1,10 @@
+---
+
+__cjdns_packages:
+  - "cjdns"
+  - "cjdns-tools"
+
+__cjdns_user: "cjdns"
+__cjdns_group: "cjdns"
+
+__cjdns_service_name: "cjdns"
