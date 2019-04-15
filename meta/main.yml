@@ -20,4 +20,3 @@ dependencies:
 
   - role: "jtyr.config_encoder_filters"
     tags: ["cjdns", "cjdns-configure"]
-
