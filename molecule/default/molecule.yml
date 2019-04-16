@@ -16,6 +16,20 @@ platforms:
     image: solita/ubuntu-systemd:16.04
 provisioner:
   name: ansible
+  inventory:
+    host_vars:
+      all:
+        cjdns_private_key: "..."
+        cjdns_public_key: "..."
+        cjdns_ipv6: "..."
+        cjdns_admin_password: "..."
+        cjdns_udp_connections:
+          "1.2.3.4:43211":
+            password: "..."
+            publicKey: "..."
+        cjdns_authorized_passwords:
+          - login: "..."
+            password: "..."
   lint:
     name: ansible-lint
 scenario:
