@@ -4,25 +4,60 @@
   include_vars: "{{ ansible_os_family }}-{{ ansible_distribution_major_version }}.yml"
   tags: ["cjdns", "cjdns-install", "cjdns-configure", "cjdns-service"]
 
-- name: "Adding PPA"
-  apt_repository:
-    repo: 'ppa:cjdns-ppa/ppa'
-  when: ansible_os_family == 'Debian'
+- name: Install cjdns dependencies package
+  tags: ["cjdns"]
+  apt:
+    name: '{{item}}'
+  with_items:
+    - nodejs
+    - git
+    - build-essential
+    - python2.7
+    - ca-certificates
 
-- name: "Ensure cjdns is installed"
-  become: true
-  yum:
-    name: "{{ item }}"
-    state: "{{ cjdns_package_state }}"
-  tags: ["cjdns", "cjdns-install"]
-  with_items: "{{ cjdns_packages | list }}"
+- name: Pull cjdns repo
+  tags: ["cjdns"]
+  git:
+    repo: 'https://github.com/cjdelisle/cjdns/'
+    dest: /home/cjdns
+    version: cjdns-v20.3
+
+- name: Build cjdns
+  tags: ["cjdns"]
+  shell: ./do >> build-with-ansible.log
+  args:
+    chdir: /home/cjdns/
+
+- name: Symlink executable
+  tags: ["cjdns"]
+  file:
+    src: /root/cjdns/cjdroute
+    dest: /usr/bin/cjdroute
+    owner: root
+    group: root
+    state: link
+    mode: 0700
+
+- name: Add cjdns service to systemd
+  tags: ["cjdns", "cjdns-service"]
+  copy:
+    src=/home/cjdns/contrib/systemd/cjdns.service
+    dest=/etc/systemd/system/cjdns.service
+    remote_src=yes
+
+- name: Add cjdns-resume service to systemd
+  tags: ["cjdns", "cjdns-service"]
+  copy:
+    src=/root/cjdns/contrib/systemd/cjdns-resume.service
+    dest=/etc/systemd/system/cjdns-resume.service
+    remote_src=yes
 
 - name: "Ensure existance of cjdns group"
   become: true
   group:
     name: "{{ cjdns_group }}"
     state: present
-  tags: ["cjdns", "cjdns-configure"]
+  tags: ["cjdns"]
   notify: ["restart cjdns"]
 
 - name: "Ensure existance of cjdns user"
@@ -31,7 +66,7 @@
     name: "{{ cjdns_user }}"
     group: "{{ cjdns_group }}"
     system: yes
-  tags: ["cjdns", "cjdns-configure"]
+  tags: ["cjdns"]
   notify: ["restart cjdns"]
 
 - name: "Configure cjdns"
@@ -46,18 +81,18 @@
   tags: ["cjdns", "cjdns-configure"]
   notify: ["restart cjdns"]
 
-
-- name: "Ensure modified systemd service file is installed"
-  become: true
-  template:
-    src: "cjdns.service.j2"
-    dest: "/etc/systemd/system/cjdns.service"
-    owner: "root"
-    group: "root"
-    mode: "0644"
-  register: "_cjdns_service_file"
-  tags: ["cjdns", "cjdns-service"]
-  notify: ["restart cjdns"]
+# Let's try first with the upstream version
+# - name: "Ensure modified systemd service file is installed"
+#   become: true
+#   template:
+#     src: "cjdns.service.j2"
+#     dest: "/etc/systemd/system/cjdns.service"
+#     owner: "root"
+#     group: "root"
+#     mode: "0644"
+#   register: "_cjdns_service_file"
+#   tags: ["cjdns", "cjdns-service"]
+#   notify: ["restart cjdns"]
 
 
 - name: "Manage cjdns service"
