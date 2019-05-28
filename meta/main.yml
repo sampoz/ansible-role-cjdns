@@ -20,4 +20,6 @@ dependencies:
     tags: ["cjdns", "cjdns-install"]
 
   - role: "jtyr.config_encoder_filters"
+    src: https://github.com/jtyr/ansible-config_encoder_filters
+    scm: git
     tags: ["cjdns", "cjdns-configure"]
