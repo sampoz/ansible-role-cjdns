@@ -17,6 +17,22 @@
   tags: ["cjdns", "cjdns-install"]
   with_items: "{{ cjdns_packages | list }}"
 
+- name: "Ensure existance of cjdns group"
+  become: true
+  group:
+    name: "{{ cjdns_group }}"
+    state: present
+  tags: ["cjdns", "cjdns-configure"]
+  notify: ["restart cjdns"]
+
+- name: "Ensure existance of cjdns user"
+  become: true
+  user:
+    name: "{{ cjdns_user }}"
+    group: "{{ cjdns_group }}"
+    system: yes
+  tags: ["cjdns", "cjdns-configure"]
+  notify: ["restart cjdns"]
 
 - name: "Configure cjdns"
   become: true
