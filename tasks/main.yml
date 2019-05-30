@@ -19,38 +19,42 @@
   tags: ["cjdns"]
   git:
     repo: 'https://github.com/cjdelisle/cjdns/'
-    dest: /home/cjdns
+    dest: /home/cjdns/cjdns-repo
     version: cjdns-v20.3
 
 - name: Build cjdns
-  tags: ["cjdns"]
+  tags: ["cjdns-build"]
   shell: ./do >> build-with-ansible.log
   args:
-    chdir: /home/cjdns/
+    chdir: /home/cjdns/cjdns-repo
 
-- name: Symlink executable
+- name: Copy executable to bin executable
   tags: ["cjdns"]
-  file:
-    src: /root/cjdns/cjdroute
+  copy:
+    src: /home/cjdns/cjdns-repo/cjdroute
+    remote_src: true
     dest: /usr/bin/cjdroute
     owner: root
     group: root
-    state: link
     mode: 0700
 
 - name: Add cjdns service to systemd
   tags: ["cjdns", "cjdns-service"]
   copy:
-    src=/home/cjdns/contrib/systemd/cjdns.service
+    src=/home/cjdns/cjdns-repo/contrib/systemd/cjdns.service
     dest=/etc/systemd/system/cjdns.service
     remote_src=yes
+  register: "_cjdns_service_file"
+  notify: ["restart cjdns"]
 
 - name: Add cjdns-resume service to systemd
   tags: ["cjdns", "cjdns-service"]
   copy:
-    src=/root/cjdns/contrib/systemd/cjdns-resume.service
+    src=/home/cjdns/cjdns-repo/contrib/systemd/cjdns-resume.service
     dest=/etc/systemd/system/cjdns-resume.service
     remote_src=yes
+  register: "_cjdns_service_file"
+  notify: ["restart cjdns"]
 
 - name: "Ensure existance of cjdns group"
   become: true
@@ -80,20 +84,6 @@
     mode: "0640"
   tags: ["cjdns", "cjdns-configure"]
   notify: ["restart cjdns"]
-
-# Let's try first with the upstream version
-# - name: "Ensure modified systemd service file is installed"
-#   become: true
-#   template:
-#     src: "cjdns.service.j2"
-#     dest: "/etc/systemd/system/cjdns.service"
-#     owner: "root"
-#     group: "root"
-#     mode: "0644"
-#   register: "_cjdns_service_file"
-#   tags: ["cjdns", "cjdns-service"]
-#   notify: ["restart cjdns"]
-
 
 - name: "Manage cjdns service"
   become: true
