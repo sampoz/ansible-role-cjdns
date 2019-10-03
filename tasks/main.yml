@@ -24,6 +24,7 @@
 
 - name: Build cjdns
   tags: ["cjdns-build"]
+  become: true
   shell: ./do >> build-with-ansible.log
   args:
     chdir: /home/cjdns/cjdns-repo
