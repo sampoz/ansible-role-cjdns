@@ -20,7 +20,7 @@
   git:
     repo: 'https://github.com/cjdelisle/cjdns/'
     dest: /home/cjdns/cjdns-repo
-    version: cjdns-v20.3
+    version: cjdns-v20.7
 
 - name: Build cjdns
   tags: ["cjdns-build"]
