@@ -56,6 +56,11 @@ Example Playbook
             - login: "..."
               password: "..."
 
+# Running tests
+
+You will need molecule and docker runner installed
+`molecule test`
+
 License
 -------
 
