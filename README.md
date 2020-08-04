@@ -61,6 +61,15 @@ Example Playbook
 You will need molecule and docker runner installed
 `molecule test`
 
+# Running tests on hetzner
+
+You need the access token configured:
+`export HCLOUD_TOKEN=<yourapitoken>`
+
+Then install the required Python package.
+
+`pip3 install molecule-hetznercloud`
+
 License
 -------
 

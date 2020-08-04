@@ -4,16 +4,16 @@ dependency:
   options:
     role-file: requirements.yml
 driver:
-  name: docker
+  name: hetznercloud
 platforms:
   - name: instance-0-debian
-    image: docker.io/python:3.8-slim-buster
-    pre_build_image: true
+    server_type: cx11
+    image: debian-10
     groups:
       - vpc_1
   - name: instance-1-debian
-    image: docker.io/python:3.8-slim-buster
-    pre_build_image: true
+    server_type: cx11
+    image: debian-10
     groups:
       - vpc_1
 
