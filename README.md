@@ -66,6 +66,9 @@ You will need molecule and docker runner installed
 You need the access token configured:
 `export HCLOUD_TOKEN=<yourapitoken>`
 
+eg. with fish and pass:
+`export HCLOUD_TOKEN=(pass hetzner/molecule-test-api-key)`
+
 Then install the required Python package.
 
 `pip3 install molecule-hetznercloud`
