@@ -36,3 +36,5 @@
       - name: Ping others in the network
         shell: "ping -c 2 -w 5 {{hostvars[item]['ansible_facts']['default_ipv4']['address']}}"
         with_items: "{{ groups['vpc_1'] }}"
+
+# TODO Verify ping over cjdns-ipv6
