@@ -1,8 +1,6 @@
 ---
 name: Molecule Test
 on: [push]
-with:
-          credentials: ${{secrets.HCLOUD_TOKEN}}
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -26,6 +24,8 @@ jobs:
           ls
           python3 -m pip install -r molecule_demo/molecule_requirements.txt
       - name: Test with molecule
+        env:
+          HCLOUD_TOKEN: ${{secrets.HCLOUD_TOKEN}}
         run: |
           cd molecule_demo
           molecule test
