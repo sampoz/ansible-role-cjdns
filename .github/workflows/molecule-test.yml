@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          path: molecule_demo
+          path: ansible-role-cjdns
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
@@ -22,10 +22,10 @@ jobs:
           sudo apt install docker
           python3 -m pip install --upgrade pip
           ls
-          python3 -m pip install -r molecule_demo/molecule_requirements.txt
+          python3 -m pip install -r ansible-role-cjdns/molecule_requirements.txt
       - name: Test with molecule
         env:
           HCLOUD_TOKEN: ${{secrets.HCLOUD_TOKEN}}
         run: |
-          cd molecule_demo
+          cd ansible-role-cjdns
           molecule test
