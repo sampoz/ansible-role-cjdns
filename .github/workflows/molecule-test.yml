@@ -28,4 +28,7 @@ jobs:
         env:
           HCLOUD_TOKEN: ${{secrets.HCLOUD_TOKEN}}
         run: |
+          ls -alh
+          cd ansible-role-cjdns
+          ls -alh
           molecule test
