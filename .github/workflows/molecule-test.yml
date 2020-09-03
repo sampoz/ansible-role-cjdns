@@ -27,3 +27,5 @@ jobs:
         run: |
           cd molecule_demo
           molecule test
+        with:
+          credentials: ${{secrets.HCLOUD_TOKEN}}
