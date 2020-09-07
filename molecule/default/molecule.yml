@@ -21,5 +21,16 @@ provisioner:
   name: ansible
   # This helps with create-debug
   log: true
+  inventory:
+    host_vars:
+      instance-0-debian:
+        cjdns_host_config:
+          ipv6: "::0"
+          key: "testKey"
+      instance-1-debian:
+        cjdns_host_config:
+          ipv6: "::1"
+          key: "testKey1"
+
 verifier:
   name: ansible

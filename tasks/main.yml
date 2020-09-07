@@ -88,6 +88,10 @@
   tags: ["cjdns", "cjdns-configure"]
   notify: ["restart cjdns"]
 
+- name: debug
+  debug:
+    msg: "CJDNS network config {{ cjdns_network  }} and host config {{ cjdns_host_config }}"
+
 - name: "Manage cjdns service"
   become: true
   service:

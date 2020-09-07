@@ -1,6 +1,9 @@
 ---
 - name: Converge
-  hosts: all
+  hosts: vpc_1
+  vars:
+    cjdns_network:
+      test: "Please"
   tasks:
     - name: "Include ansible-role-cjdns"
       include_role:
