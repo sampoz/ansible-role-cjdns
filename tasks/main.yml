@@ -28,6 +28,8 @@
   shell: ./do >> build-with-ansible.log
   args:
     chdir: /home/cjdns/cjdns-repo
+    # Hox, how do we update?
+    creates: build-with-ansible.log
 
 - name: Copy executable to bin executable
   tags: ["cjdns"]
