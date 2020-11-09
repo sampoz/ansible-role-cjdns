@@ -23,14 +23,39 @@ provisioner:
   log: true
   inventory:
     host_vars:
+      # TODO Move these to vault or generate on each use?
       instance-0-debian:
-        cjdns_host_config:
-          ipv6: "::0"
-          key: "testKey"
+       cjdns_private_key:   "b8a089c34a84de11ffbc0e672f32ada458765dd920f49d6c4752f0d307477195"
+       cjdns_public_key:    "phu5v9qpz7mk1x4q7zh5nlsg7m1jqvmwsnk76qhwhf1z2jfd9sq0.k"
+       cjdns_ipv6:          "fc50:6550:af1f:155a:4bb7:76be:a74f:e4ad"
+       cjdns_admin_password: "L01JM3EzdFZJWEVtWjNPbVFxdHUrNU5pWUlNPQo="
+       cjdns_udp_address:   "0.0.0.0"
+       cjdns_udp_port:      "43211"
+       cjdns_authorized_passwords:
+          - login: "default-login"
+            password: "MXFTZUdjVWQ0QWFEL1lDTUl2cjJFSFFRZElzPQo"
+       cjdns_udp_connections:
+         "135.181.88.87:43211":
+           # Network password
+           password: "MXFTZUdjVWQ0QWFEL1lDTUl2cjJFSFFRZElzPQo"
+           publicKey: "71rg8m1ncgw5dujbqyxz4w38nurzjh63v227qd98ux4vwtssy690.k"
+
       instance-1-debian:
-        cjdns_host_config:
-          ipv6: "::1"
-          key: "testKey1"
+        cjdns_private_key:   "a94384515f46670e860e42faaec2132d5596f84210e99053ba8761f097b58a75"
+        cjdns_public_key:    "71rg8m1ncgw5dujbqyxz4w38nurzjh63v227qd98ux4vwtssy690.k"
+        cjdns_ipv6:          "fc67:62f3:dcdf:0948:d360:3f8d:ef3b:a089"
+        cjdns_admin_password: "Z0wyTThxNTA1ci9kbWNzQkdmekcveVlhWmNnPQo="
+        cjdns_udp_address:   "0.0.0.0"
+        cjdns_udp_port:      "43211"
+        cjdns_authorized_passwords:
+          - login: "default-login"
+            password: "MXFTZUdjVWQ0QWFEL1lDTUl2cjJFSFFRZElzPQo"
+        cjdns_udp_connections:
+          # TODO How to get ip's automatically
+          "135.181.91.140:43211":
+            password: "MXFTZUdjVWQ0QWFEL1lDTUl2cjJFSFFRZElzPQo"
+            publicKey: "phu5v9qpz7mk1x4q7zh5nlsg7m1jqvmwsnk76qhwhf1z2jfd9sq0.k"
+
 
 verifier:
   name: ansible
