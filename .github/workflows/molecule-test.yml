@@ -5,7 +5,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
-      max-parallel: 4
+      max-parallel: 1
       matrix:
         # TODO Add more versions when moving forward
         python-version: [3.7]
@@ -21,9 +21,11 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt install docker
-          python3 -m pip install --upgrade pip
+          pip install --user pipenv
+          # If the upper one does not work
+          # curl https://raw.githubusercontent.com/pypa/pipenv/master/get-pipenv.py | python
           ls
-          python3 -m pip install -r ansible-role-cjdns/molecule_requirements.txt
+          pipenv install
       - name: Test with molecule
         env:
           HCLOUD_TOKEN: ${{secrets.HCLOUD_TOKEN}}
@@ -31,4 +33,4 @@ jobs:
           ls -alh
           cd ansible-role-cjdns
           ls -alh
-          molecule test
+          pipenv run molecule test
