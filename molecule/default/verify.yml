@@ -4,20 +4,20 @@
 - name: Verify per host tests
   hosts: all
   tasks:
-  - name: Register test file contents
-    slurp:
-      src: /testfile
-    register: testfile_contents
+  # - name: Register test file contents
+  #   slurp:
+  #     src: /testfile
+  #   register: testfile_contents
 
-  - name: debug
-    debug:
-      msg: "{{ansible_default_ipv4}}"
+  # - name: debug
+  #   debug:
+  #     msg: "{{ansible_default_ipv4}}"
 
-  - name: Check that testfile is OK
-    assert:
-      that:
-        - "'TESTSTRING' in (testfile_contents.content | b64decode)"
-      msg: "Testfile contents differ"
+  # - name: Check that testfile is OK
+  #   assert:
+  #     that:
+  #       - "'TESTSTRING' in (testfile_contents.content | b64decode)"
+  #     msg: "Testfile contents differ"
 
   - name: Ping self to test ping
     shell: "ping -c 2 -w 5 {{ansible_default_ipv4.address}} "

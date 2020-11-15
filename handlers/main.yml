@@ -2,7 +2,9 @@
 
 - name: "restart cjdns"
   become: true
-  service:
-    name: "{{ cjdns_service_name }}"
-    state: "restarted"
+#  service:
+#    name: "{{ cjdns_service_name }}"
+#    state: "restarted"
+  debug:
+    msg: "would have restarted cjdns"
   when: "cjdns_service_state == 'started'"

@@ -35,7 +35,7 @@ provisioner:
           - login: "default-login"
             password: "MXFTZUdjVWQ0QWFEL1lDTUl2cjJFSFFRZElzPQo"
        cjdns_udp_connections:
-         "135.181.88.87:43211":
+         "135.181.148.40:43211":
            # Network password
            password: "MXFTZUdjVWQ0QWFEL1lDTUl2cjJFSFFRZElzPQo"
            publicKey: "71rg8m1ncgw5dujbqyxz4w38nurzjh63v227qd98ux4vwtssy690.k"
@@ -52,7 +52,7 @@ provisioner:
             password: "MXFTZUdjVWQ0QWFEL1lDTUl2cjJFSFFRZElzPQo"
         cjdns_udp_connections:
           # TODO How to get ip's automatically
-          "135.181.91.140:43211":
+          "135.181.148.39:43211":
             password: "MXFTZUdjVWQ0QWFEL1lDTUl2cjJFSFFRZElzPQo"
             publicKey: "phu5v9qpz7mk1x4q7zh5nlsg7m1jqvmwsnk76qhwhf1z2jfd9sq0.k"
 
