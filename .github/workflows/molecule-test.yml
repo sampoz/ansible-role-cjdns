@@ -23,15 +23,17 @@ jobs:
           # sudo apt install docker
           #pip install --user pipenv
           # If the upper one does not work
-          curl https://raw.githubusercontent.com/pypa/pipenv/master/get-pipenv.py | python
-          ls
-          pipenv install
+          #curl https://raw.githubusercontent.com/pypa/pipenv/master/get-pipenv.py | python
+          #ls
+          #pipenv install
+          sudo apt install virtualenv
+          virtualenv -p python3.7 .venv
       - name: Test with molecule
         env:
           HCLOUD_TOKEN: ${{secrets.HCLOUD_TOKEN}}
         run: |
+          .venv/bin/activate
           ls -alh
           cd ansible-role-cjdns
-          pipenv sync
           ls -alh
-          pipenv run molecule test
+          molecule test

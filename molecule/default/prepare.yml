@@ -5,3 +5,5 @@
     - name: Python deps for apt and ip autodiscovery for debian
       shell: "apt update && apt install python3 iproute2 iputils-ping python3-apt sudo -y"
       when: ansible_distribution == 'Debian'
+    - name: "check python interpreter"
+      shell: "which python && which python3"
