@@ -32,5 +32,6 @@ jobs:
         run: |
           ls -alh
           cd ansible-role-cjdns
+          pipenv sync
           ls -alh
           pipenv run molecule test
