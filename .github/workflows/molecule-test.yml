@@ -20,12 +20,6 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: |
-          # sudo apt install docker
-          #pip install --user pipenv
-          # If the upper one does not work
-          #curl https://raw.githubusercontent.com/pypa/pipenv/master/get-pipenv.py | python
-          #ls
-          #pipenv install
           sudo apt install virtualenv
           virtualenv -p python3.7 .venv
           . .venv/bin/activate
