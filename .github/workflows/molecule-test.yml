@@ -20,7 +20,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: |
-          sudo apt install docker
+          # sudo apt install docker
           #pip install --user pipenv
           # If the upper one does not work
           curl https://raw.githubusercontent.com/pypa/pipenv/master/get-pipenv.py | python
