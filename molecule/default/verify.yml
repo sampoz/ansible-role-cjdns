@@ -4,44 +4,44 @@
 - name: Verify per host tests
   hosts: all
   tasks:
-  # - name: Register test file contents
-  #   slurp:
-  #     src: /testfile
-  #   register: testfile_contents
+    # - name: Register test file contents
+    #   slurp:
+    #     src: /testfile
+    #   register: testfile_contents
 
-  # - name: debug
-  #   debug:
-  #     msg: "{{ansible_default_ipv4}}"
+    # - name: debug
+    #   debug:
+    #     msg: "{{ansible_default_ipv4}}"
 
-  # - name: Check that testfile is OK
-  #   assert:
-  #     that:
-  #       - "'TESTSTRING' in (testfile_contents.content | b64decode)"
-  #     msg: "Testfile contents differ"
+    # - name: Check that testfile is OK
+    #   assert:
+    #     that:
+    #       - "'TESTSTRING' in (testfile_contents.content | b64decode)"
+    #     msg: "Testfile contents differ"
 
-  - name: Ping self to test ping
-    shell: "ping -c 2 -w 5 {{ansible_default_ipv4.address}} "
+    - name: Ping self to test ping
+      shell: "ping -c 2 -w 5 {{ansible_default_ipv4.address}} "
 
 - name: Debug group tests for vpc_1
   hosts: vpc_1
   tasks:
-      - name: Check network conf
-        debug:
-          msg: "Current host: {{ inventory_hostname }} Address to ping {{hostvars[item]['ansible_facts']['default_ipv4']['address']}} "
-        with_items: "{{ groups['vpc_1'] }}"
+    - name: Check network conf
+      debug:
+        msg: "Current host: {{ inventory_hostname }} Address to ping {{hostvars[item]['ansible_facts']['default_ipv4']['address']}} "
+      with_items: "{{ groups['vpc_1'] }}"
 
 - name: Verify group tests for vpc_1
   hosts: vpc_1
   tasks:
-      - name: Ping others in the network
-        shell: "ping -c 2 -w 5 {{hostvars[item]['ansible_facts']['default_ipv4']['address']}}"
-        with_items: "{{ groups['vpc_1'] }}"
+    - name: Ping others in the network
+      shell: "ping -c 2 -w 5 {{hostvars[item]['ansible_facts']['default_ipv4']['address']}}"
+      with_items: "{{ groups['vpc_1'] }}"
 
 # TODO Verify ping over cjdns-ipv6
 - name: Verify group tests for vpc_1
   hosts: vpc_1
   tasks:
-      - name: Ping others in the network
-        # TODO get addresses from network variables
-        shell: "ping -c 2 -w 5 {{hostvars[item]['ansible_facts']['default_ipv4']['address']}}"
-        with_items: "{{ groups['vpc_1'] }}"
+    - name: Ping others in the network
+      # TODO get addresses from network variables
+      shell: "ping -c 2 -w 5 {{hostvars[item]['ansible_facts']['default_ipv4']['address']}}"
+      with_items: "{{ groups['vpc_1'] }}"
