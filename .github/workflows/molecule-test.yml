@@ -28,11 +28,13 @@ jobs:
           #pipenv install
           sudo apt install virtualenv
           virtualenv -p python3.7 .venv
+          . .venv/bin/activate
+          pip3 install -r manual_requirements.yml
       - name: Test with molecule
         env:
           HCLOUD_TOKEN: ${{secrets.HCLOUD_TOKEN}}
         run: |
-          .venv/bin/activate
+          . .venv/bin/activate
           ls -alh
           cd ansible-role-cjdns
           ls -alh
